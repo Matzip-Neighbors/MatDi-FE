@@ -1,4 +1,4 @@
-import { Route, BrowserRouter as Router, Switch, Link } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Auth from "./Auth";
 import Profile from "./Profile";
 
