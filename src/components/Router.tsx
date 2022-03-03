@@ -1,19 +1,23 @@
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
-import Auth from "./Auth";
-import Profile from "./Profile";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Auth from "../routes/Auth";
+import Profile from "../routes/Profile";
+import Login from "../routes/Login";
 
-function App() {
+const Router = () => {
   const CLIENT_ID = process.env.REACT_APP_KAKAO_API_KEY;
   const REDIRECT_URI = "http://localhost:3000/api/user/kakao/callback";
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   return (
-    <Router>
+    <BrowserRouter>
       <div className="App">
         <Switch>
           <Route exact path="/">
+            <a href={KAKAO_AUTH_URL}>Login</a>
+          </Route>
+          <Route exact path={KAKAO_AUTH_URL}>
             <h1>
-              <a href={KAKAO_AUTH_URL}>Login</a>
+              <Login />
             </h1>
           </Route>
           <Route path="/oauth/kakao/callback">
@@ -24,8 +28,8 @@ function App() {
           </Route>
         </Switch>
       </div>
-    </Router>
+    </BrowserRouter>
   );
-}
+};
 
-export default App;
+export default Router;
