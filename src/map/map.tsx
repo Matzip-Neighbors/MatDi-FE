@@ -1,77 +1,82 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
+import styled from "styled-components";
+
+const MapContainer = styled.div` 
+position: relative; 
+margin: auto; 
+margin-bottom: 60px; 
+width: 900px; 
+height: 500px; 
+@media (max-width: 1000px){ 
+  width: 85%; 
+}; 
+@media (max-width: 450px){ 
+  width: 95%; height: 400px; 
+}
+ `
+ const MapBtnContainer = styled.div` 
+ position: absolute; 
+ top: 15px; 
+ right: 10px; 
+ z-index: 5; 
+ border-radius: 5px; 
+ display: flex; 
+ align-items: center;
+  border:1px solid #919191; 
+ background-color: #F5F5F5;
+` 
+const MapControlBtn = styled.div` 
+width:40px; 
+height:30px; 
+display: flex;
+ justify-content: center; 
+align-items: center; 
+text-align:center; 
+cursor:pointer; 
+`
 
 declare global {
   interface Window {
     kakao: any;
+    _map:any;
   }
 }
 
 const Map: React.FC = () => {
+  const [_map, setMap ] = useState<any>(0);
+
   useEffect(() => {
 
-    let container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
-    let options = { //지도를 생성할 때 필요한 기본 옵션
+    let container = document.getElementById('map'); 
+    let options = { 
       center: new window.kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-      level: 3 //지도의 레벨(확대, 축소 정도)
+      level: 6
     };
 
-    let map = new window.kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    let map = new window.kakao.maps.Map(container, options); 
 
-    var positions = [
-      {
-          content: '<div>카카오</div>', 
-          latlng: new window.kakao.maps.LatLng(33.450705, 126.570677)
-      },
-      {
-          content: '<div>생태연못</div>', 
-          latlng: new window.kakao.maps.LatLng(33.450936, 126.569477)
-      },
-      {
-          content: '<div>텃밭</div>', 
-          latlng: new window.kakao.maps.LatLng(33.450879, 126.569940)
-      },
-      {
-          content: '<div>근린공원</div>',
-          latlng: new window.kakao.maps.LatLng(33.451393, 126.570738)
-      }
-  ];
-
-  for (var i = 0; i < positions.length; i ++) {
-
-    var marker = new window.kakao.maps.Marker({
-        map: map,
-        position: positions[i].latlng 
-    });
-
-
-    var infowindow = new window.kakao.maps.InfoWindow({
-        content: positions[i].content 
-    });
-
-    window.kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(map, marker, infowindow));
-    window.kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
-}
-
-
-function makeOverListener(map:any, marker:any, infowindow:any) {
-    return function() {
-        infowindow.open(map, marker);
-    };
-}
-
-function makeOutListener(infowindow:any) {
-    return function() {
-        infowindow.close();
-    };
-}
-
-   
+    setMap(map)
 
   }, [])
 
+  const zoomIn = () => { 
+    _map.setLevel(_map.getLevel() - 1); 
+  } 
+
+  const zoomOut = () => { 
+    _map.setLevel(_map.getLevel() + 1); 
+  }
+
+
+
   return (
     <div className="App">
-      <div id="map" style={{ width: "100vw", height: "100vh" }} />
+      <MapContainer id='map'> 
+      <MapBtnContainer> 
+        <MapControlBtn onClick={zoomIn} style={{borderRight: "1px solid #919191"}} >+</MapControlBtn> 
+        <MapControlBtn onClick={zoomOut} >-</MapControlBtn> 
+      </MapBtnContainer> 
+      </ MapContainer>
     </div>
   );
 }
