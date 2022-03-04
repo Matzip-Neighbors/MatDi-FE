@@ -3,26 +3,41 @@ import styled from "styled-components";
 const InputContainer = styled.div`
   width: 10rem;
   margin: 20rem auto;
-  padding: 1.8rem;
+  input {
+    width: 20rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 1;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    right: 50%;
+  }
+  h3 {
+    display: flex;
+    opacity: 0.4;
+    font-size: 12px;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+    left: 65%;
+  }
 `;
 
-const User = styled.h3`
-  display: flex;
-  justify-content: end;
-  opacity: 0.3;
-  font-size: 12px;
-  position: relative;
-  left: 1.6rem;
-  bottom: 0.8rem;
-`;
 const Input = styled.input`
   display: flex;
   padding: 0.6rem 0.8rem;
   margin: 1rem auto;
+  opacity: 0.5;
 `;
 
 const LoginButton = styled.div`
-  margin: -20rem auto;
+  margin: -18rem auto;
   margin-left: 11rem;
 `;
 
@@ -34,9 +49,13 @@ const Login = () => {
   return (
     <>
       <InputContainer>
-        <Input type="email" name="email" placeholder="Email" />
-        <Input type="password" name="password" placeholder="password" />
-        <User>회원가입 로그인</User>
+        <Input type="email" name="email" placeholder="이메일을 입력하세요" />
+        <Input
+          type="password"
+          name="password"
+          placeholder="비밀번호를 입력하세요"
+        />
+        <h3>회원가입 로그인</h3>
       </InputContainer>
       <a href={KAKAO_AUTH_URL}>
         <LoginButton>
