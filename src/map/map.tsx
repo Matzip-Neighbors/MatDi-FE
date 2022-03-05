@@ -43,14 +43,14 @@ declare global {
 }
 
 const Map: React.FC = () => {
-  const [_map, setMap ] = useState<any>(0);
+  const [map, setMap ] = useState<any>(0);
 
   useEffect(() => {
 
     let container = document.getElementById('map'); 
     let options = { 
       center: new window.kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
-      level: 6
+      level: 3
     };
 
     let map = new window.kakao.maps.Map(container, options); 
@@ -60,11 +60,11 @@ const Map: React.FC = () => {
   }, [])
 
   const zoomIn = () => { 
-    _map.setLevel(_map.getLevel() - 1); 
+    map.setLevel(map.getLevel() - 1); 
   } 
 
   const zoomOut = () => { 
-    _map.setLevel(_map.getLevel() + 1); 
+    map.setLevel(map.getLevel() + 1); 
   }
 
 
