@@ -19,13 +19,16 @@ const InputContainer = styled.div`
     right: 50%;
   }
   h3 {
-    display: flex;
+    display: inline-block;
+
+    flex-wrap: wrap;
     opacity: 0.4;
     font-size: 12px;
-    justify-content: flex-end;
-    align-items: center;
     position: relative;
-    left: 65%;
+    margin-left: 0.5rem;
+    margin-bottom: 0.5rem;
+    left: 100%;
+    cursor: pointer;
   }
 `;
 
@@ -55,7 +58,8 @@ const Login = () => {
           name="password"
           placeholder="비밀번호를 입력하세요"
         />
-        <h3>회원가입 로그인</h3>
+        <h3>회원가입 </h3>
+        <h3>로그인</h3>
       </InputContainer>
       <a href={KAKAO_AUTH_URL}>
         <LoginButton>
