@@ -3,6 +3,7 @@ import Auth from "../routes/Auth";
 import Profile from "../routes/Profile";
 import Success from "./../routes/Success";
 import Login from "./../routes/Login";
+import SignUp from "./../routes/SignUp";
 
 const Router = () => {
   const CLIENT_ID = process.env.REACT_APP_KAKAO_API_KEY;
@@ -13,8 +14,11 @@ const Router = () => {
     <BrowserRouter>
       <div className="App">
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/login">
             <Login />
+          </Route>
+          <Route exact path="/signup">
+            <SignUp />
           </Route>
           <Route exact path={KAKAO_AUTH_URL}>
             <h1>
