@@ -1,40 +1,64 @@
-import React, { useEffect,useState } from 'react';
+import React, { useState} from 'react';
 import Map from "../map/map";
+import styled from "styled-components";
 
-    
-interface Iprops {
-  onChange: () => void;
-  handleSubmit:() =>void;
-  searchPlace: () => void;
+// const Searchbar = styled.div`
+//   width: 100px;
+//   border: 3px solid #00B4CC;
+//   border-right: none;
+//   padding: 5px;
+//   height: 20px;
+//   border-radius: 5px 0 0 5px;
+//   outline: none;
+//   color: #9DBFAF;
+
+export interface propsType {
+  searchKeyword: string
 }
 
-const SearchPlace = () => {
-  const [inputText, setInputText] = useState<any>("");
-  const [place, setPlace] = useState<any>("");
+const SearchPage = ():JSX.Element => {
+  // 입력 폼 변화 감지하여 입력 값 관리
+  const [Value, setValue] = useState("");
+  // 제출한 검색어 관리
+  const [Keyword, setKeyword] = useState("");
 
-  const onChange = (e:any) => {
-    setInputText(e.target.value);
-  };
-
-  const handleSubmit = (e:any) => {
+  // 입력 폼 변화 감지하여 입력 값을 state에 담아주는 함수
+  const keywordChange = (e: { preventDefault: () => void; target: { value: string }; }) => {
     e.preventDefault();
-    setPlace(inputText);
-    setInputText("");
-  };
+    setValue(e.target.value);
+  }
 
-  return (
-    <>
-      <form className="inputForm" onSubmit={handleSubmit}>
-        <input
-          placeholder="Search Place..."
-          onChange={onChange}
-          value={inputText}
-        />
-        <button type="submit">검색</button>
-      </form>
-      <Map {...place}/>
-    </>
-  );
-};
+// 제출한 검색어 state에 담아주는 함수
+const submitKeyword = (e: { preventDefault: () => void; }) => {
+  e.preventDefault();
+  setKeyword(Value);
+}
 
-export default SearchPlace;
+// 검색어를 입력하지 않고 검색 버튼을 눌렀을 경우
+const valueChecker = () => {
+  if (Value === "") {
+    alert ("검색어를 입력해주세요.")
+  }
+}
+
+return (
+  <div className="landing-page">
+    <div className="landing-page__inner">
+      <div className="search-form-container">
+        <form className="search-form" onSubmit={ submitKeyword }>
+          <label htmlFor="place" className="form__label">
+            <input type="text" id="movie-title" className="form__input" name="place" onChange={ keywordChange } placeholder="검색어를 입력해주세요." required />
+            <div className="btn-box">
+              <input className="btn form__submit" type="submit" value="검색" onClick={ valueChecker }/>
+            </div>
+          </label>
+        </form>
+      </div>
+      {/* 제출한 검색어 넘기기 */}
+      <Map searchKeyword={ Keyword }/>
+    </div>
+  </div>
+)
+}
+
+export default SearchPage;
