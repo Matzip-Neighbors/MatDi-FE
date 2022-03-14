@@ -1,5 +1,6 @@
 import React from 'react';
-import Maptest from '../src/search/mainsearch';
+// import Maptest from '../src/search/mainsearch';
+import Maptest from '../src/map/location';
 import './App.css';
 
 function App() {
