@@ -40,11 +40,6 @@ const Input = styled.input`
   opacity: 0.5;
 `;
 
-const LoginButton = styled.div`
-  margin: -18rem auto;
-  margin-left: 11rem;
-`;
-
 const Login = () => {
   const CLIENT_ID = process.env.REACT_APP_KAKAO_API_KEY;
   const REDIRECT_URI = "http://localhost:3000/api/user/kakao/callback";
