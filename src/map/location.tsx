@@ -13,7 +13,44 @@ height: 500px;
   width: 95%; height: 400px; 
 }
 `
+// const Map: React.FC = () => {
+//   const [map, setMap ] = useState<any>(0);
 
+//   useEffect(() => {
+
+//     let container = document.getElementById('map'); 
+//     let options = { 
+//       center: new window.kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+//       level: 3
+//     };
+
+//     let map = new window.kakao.maps.Map(container, options); 
+
+//     setMap(map)
+
+//   }, [])
+
+//   const zoomIn = () => { 
+//     map.setLevel(map.getLevel() - 1); 
+//   } 
+
+//   const zoomOut = () => { 
+//     map.setLevel(map.getLevel() + 1); 
+//   }
+
+
+
+//   return (
+//     <div className="App">
+//       <MapContainer id='map'> 
+//       <MapBtnContainer> 
+//         <MapControlBtn onClick={zoomIn} style={{borderRight: "1px solid #919191"}} >+</MapControlBtn> 
+//         <MapControlBtn onClick={zoomOut} >-</MapControlBtn> 
+//       </MapBtnContainer> 
+//       </ MapContainer>
+//     </div>
+//   );
+// }
 const { kakao } = window as any;
 
 function Location() {

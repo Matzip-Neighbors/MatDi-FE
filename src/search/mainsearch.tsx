@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 // import Map from "../map/map";
-import styled from "styled-components";
+// import styled from "styled-components";
 
 // const Searchbar = styled.div`
 //   width: 100px;
