@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import KakaoLogin from "react-kakao-login";
 import { Link } from "react-router-dom";
+import KakaoLogin from "react-kakao-login";
 
 const Form = styled.form`
   width: 10rem;
@@ -29,27 +29,45 @@ const Input = styled.input`
   opacity: 0.5;
 `;
 
+// const LoginButton = styled.button`
+//   margin: -18rem auto;
+//   margin-left: 11rem;
+//   cursor: pointer;
+//   border: 0;
+//   outline: 0;
+//   background-color: transparent;
+// `;
+
 interface LoginForm {
   email: string;
   password: string;
 }
 
+const { Kakao } = window;
+Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
+
 const Login = () => {
-  const { register, handleSubmit } = useForm<LoginForm>();
+  const CLIENT_ID = process.env.REACT_APP_KAKAO_API_KEY;
+  const REDIRECT_URI = process.env.API_URI;
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const { register, handleSubmit } = useForm<LoginForm>({ mode: "onChange" });
   const onValid = (data: LoginForm) => {
     if (!data.email && !data.password) return;
   };
+
   return (
     <>
       <Form onSubmit={handleSubmit(onValid)}>
         <Input
-          {...register("email")}
+          {...register("email", { required: "이메일을 입력해주세요." })}
           type="email"
+          name="email"
           placeholder="이메일을 입력하세요"
         />
         <Input
-          {...register("password")}
+          {...register("password", { required: "이메일을 입력해주세요" })}
           type="password"
+          name="password"
           placeholder="비밀번호를 입력하세요"
         />
         <Link
@@ -69,26 +87,25 @@ const Login = () => {
           회원가입
         </Link>
       </Form>
-
-      <KakaoLogin
-        token={String(process.env.REACT_APP_KAKAO_API_KEY)}
-        onSuccess={() => {
-          console.log("로그인성공");
-        }}
-        onFail={(err) => {
-          console.log("로그인실패", err);
-        }}
-        style={{
-          border: "none",
-          backgroundColor: "transparent",
-          cursor: "pointer",
-          position: "absolute",
-          top: "55%",
-          right: "30%",
-        }}
-      >
-        <img src={require("../img/kakao_logo.png")} alt="kakao_logo" />
-      </KakaoLogin>
+      <a href={KAKAO_AUTH_URL}>
+        <KakaoLogin
+          token={String(process.env.REACT_APP_KAKAO_API_KEY)}
+          onSuccess={() => {
+            console.log("로그인성공");
+          }}
+          onFail={(err) => {
+            console.log("로그인실패", err);
+          }}
+          style={{
+            border: "none",
+            backgroundColor: "transparent",
+            cursor: "pointer",
+          }}
+        >
+          <img src={require("../img/kakao_logo.png")} alt="kakao_logo" />
+        </KakaoLogin>
+      </a>
+      <p id="token-result"></p>
     </>
   );
 };
