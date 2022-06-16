@@ -29,14 +29,17 @@ const Input = styled.input`
   opacity: 0.5;
 `;
 
-// const LoginButton = styled.button`
-//   margin: -18rem auto;
-//   margin-left: 11rem;
-//   cursor: pointer;
-//   border: 0;
-//   outline: 0;
-//   background-color: transparent;
-// `;
+const NavLink = styled(Link)`
+  text-decoration: none;
+  font-size: 12px;
+  position: relative;
+  margin-left: 0.5rem;
+  margin-bottom: 0.5rem;
+  left: 120%;
+  cursor: pointer;
+  font-weight: "600";
+  opacity: "0.4";
+`;
 
 interface LoginForm {
   email: string;
@@ -70,22 +73,7 @@ const Login = () => {
           name="password"
           placeholder="비밀번호를 입력하세요"
         />
-        <Link
-          to="/signup"
-          style={{
-            textDecoration: "none",
-            fontSize: "12px",
-            position: "relative",
-            marginLeft: "0.5rem",
-            marginBottom: "0.5rem",
-            left: "120%",
-            cursor: "pointer",
-            fontWeight: "600",
-            opacity: "0.4",
-          }}
-        >
-          회원가입
-        </Link>
+        <NavLink to="/signup">회원가입</NavLink>
       </Form>
       <a href={KAKAO_AUTH_URL}>
         <KakaoLogin
