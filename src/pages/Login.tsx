@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import KakaoLogin from "react-kakao-login";
+import Layout from "../components/Layout";
 
 const Form = styled.form`
   width: 10rem;
@@ -46,8 +47,8 @@ interface LoginForm {
   password: string;
 }
 
-const { Kakao } = window;
-Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
+// const { Kakao } = window;
+// Kakao.init(process.env.REACT_APP_KAKAO_API_KEY);
 
 const Login = () => {
   const CLIENT_ID = process.env.REACT_APP_KAKAO_API_KEY;
@@ -59,7 +60,7 @@ const Login = () => {
   };
 
   return (
-    <>
+    <Layout>
       <Form onSubmit={handleSubmit(onValid)}>
         <Input
           {...register("email", { required: "이메일을 입력해주세요." })}
@@ -94,7 +95,7 @@ const Login = () => {
         </KakaoLogin>
       </a>
       <p id="token-result"></p>
-    </>
+    </Layout>
   );
 };
 
