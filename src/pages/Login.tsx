@@ -42,6 +42,14 @@ const NavLink = styled(Link)`
   opacity: "0.4";
 `;
 
+const KaKaoLink = styled.a`
+  position: relative;
+  bottom: 19rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+`;
+
 interface LoginForm {
   email: string;
   password: string;
@@ -76,7 +84,7 @@ const Login = () => {
         />
         <NavLink to="/signup">회원가입</NavLink>
       </Form>
-      <a href={KAKAO_AUTH_URL}>
+      <KaKaoLink href={KAKAO_AUTH_URL}>
         <KakaoLogin
           token={String(process.env.REACT_APP_KAKAO_API_KEY)}
           onSuccess={() => {
@@ -85,15 +93,8 @@ const Login = () => {
           onFail={(err) => {
             console.log("로그인실패", err);
           }}
-          style={{
-            border: "none",
-            backgroundColor: "transparent",
-            cursor: "pointer",
-          }}
-        >
-          <img src={require("../img/kakao_logo.png")} alt="kakao_logo" />
-        </KakaoLogin>
-      </a>
+        ></KakaoLogin>
+      </KaKaoLink>
       <p id="token-result"></p>
     </Layout>
   );
