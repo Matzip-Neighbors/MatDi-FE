@@ -2,10 +2,17 @@ import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import KakaoLogin from "react-kakao-login";
 import { Link } from "react-router-dom";
+import PageTitle from "../components/PageTitle";
+
+const LoginContainer = styled.main`
+  border: 2px solid black;
+  margin: 2rem;
+  border-radius: 2rem;
+`;
 
 const Form = styled.form`
   width: 10rem;
-  margin: 20rem auto;
+  margin: 15rem auto;
   input {
     width: 20rem;
     display: flex;
@@ -24,10 +31,46 @@ const Form = styled.form`
 
 const Input = styled.input`
   display: flex;
+  justify-content: space-between;
   padding: 0.6rem 0.8rem;
   margin: 1rem auto;
   opacity: 0.5;
+  &:last-of-type {
+    margin: 3rem 0;
+    font-size: 1.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+  }
 `;
+
+const ErrorMessage = styled.div`
+  width: 120%;
+  color: red;
+`;
+
+const ForgotPassword = styled.h5`
+  display: flex;
+  width: 100%;
+  padding-left: 1rem;
+  opacity: 0.5;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.3;
+  }
+`;
+
+// const SignUpLink = styled(Link)`
+//   text-decoration: none;
+//   font-size: 12px;
+//   position: relative;
+//   margin-left: 0.5rem;
+//   margin-bottom: 0.5rem;
+//   left: 120%;
+//   cursor: pointer;
+//   font-weight: 600;
+//   opacity: 0.4;
+// `;
 
 interface LoginForm {
   email: string;
@@ -35,42 +78,37 @@ interface LoginForm {
 }
 
 const Login = () => {
-  const { register, handleSubmit } = useForm<LoginForm>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginForm>({ mode: "onChange" });
   const onValid = (data: LoginForm) => {
     if (!data.email && !data.password) return;
   };
   return (
-    <>
+    <LoginContainer>
+      <PageTitle title="Log In" />
       <Form onSubmit={handleSubmit(onValid)}>
         <Input
-          {...register("email")}
+          {...register("email", {
+            required: "이메일을 입력해주세요.",
+          })}
           type="email"
-          placeholder="이메일을 입력하세요"
+          placeholder="이메일"
         />
+        <ErrorMessage>{errors.email?.message}</ErrorMessage>
         <Input
-          {...register("password")}
+          {...register("password", { required: "비밀번호를 입력해주세요" })}
           type="password"
-          placeholder="비밀번호를 입력하세요"
+          placeholder="비밀번호"
         />
-        <Link
-          to="/signup"
-          style={{
-            textDecoration: "none",
-            fontSize: "12px",
-            position: "relative",
-            marginLeft: "0.5rem",
-            marginBottom: "0.5rem",
-            left: "120%",
-            cursor: "pointer",
-            fontWeight: "600",
-            opacity: "0.4",
-          }}
-        >
-          회원가입
-        </Link>
+        <ErrorMessage>{errors.password?.message}</ErrorMessage>
+        {/* <SignUpLink to="/signup">회원가입</SignUpLink> */}
+        <Input type="submit" value="Sign in" />
+        <ForgotPassword>비밀번호를 잊으셨습니까?</ForgotPassword>
       </Form>
-
-      <KakaoLogin
+      {/* <KakaoLogin
         token={String(process.env.REACT_APP_KAKAO_API_KEY)}
         onSuccess={() => {
           console.log("로그인성공");
@@ -88,8 +126,8 @@ const Login = () => {
         }}
       >
         <img src={require("../img/kakao_logo.png")} alt="kakao_logo" />
-      </KakaoLogin>
-    </>
+      </KakaoLogin> */}
+    </LoginContainer>
   );
 };
 

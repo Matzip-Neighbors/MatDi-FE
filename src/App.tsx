@@ -1,5 +1,6 @@
-import Router from "./Router";
+import Router from "./components/Router";
 import styled from "styled-components";
+import { HelmetProvider } from "react-helmet-async";
 
 const Title = styled.title`
   display: flex;
@@ -13,8 +14,10 @@ const Title = styled.title`
 function App() {
   return (
     <>
-      <Title>MatDi</Title>
-      <Router />
+      <HelmetProvider>
+        <Title>MatDi</Title>
+        <Router />
+      </HelmetProvider>
     </>
   );
 }
