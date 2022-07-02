@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+
 import KakaoLogin from "react-kakao-login";
 import Layout from "../components/Layout";
 
@@ -30,18 +30,6 @@ const Input = styled.input`
   opacity: 0.5;
 `;
 
-const NavLink = styled(Link)`
-  text-decoration: none;
-  font-size: 12px;
-  position: relative;
-  margin-left: 0.5rem;
-  margin-bottom: 0.5rem;
-  left: 120%;
-  cursor: pointer;
-  font-weight: "600";
-  opacity: "0.4";
-`;
-
 const KaKaoLink = styled.a`
   position: relative;
   bottom: 19rem;
@@ -62,7 +50,9 @@ const Login = () => {
   const CLIENT_ID = process.env.REACT_APP_KAKAO_API_KEY;
   const REDIRECT_URI = process.env.API_URI;
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-  const { register, handleSubmit } = useForm<LoginForm>({ mode: "onChange" });
+  const { register, handleSubmit, resetField } = useForm<LoginForm>({
+    mode: "onChange",
+  });
   const onValid = (data: LoginForm) => {
     if (!data.email && !data.password) return;
   };
@@ -82,10 +72,15 @@ const Login = () => {
           name="password"
           placeholder="비밀번호를 입력하세요"
         />
-        <NavLink to="/signup">회원가입</NavLink>
       </Form>
       <KaKaoLink href={KAKAO_AUTH_URL}>
         <KakaoLogin
+          style={{
+            backgroundColor: "yellow",
+            borderRadius: "1rem",
+            padding: "1rem",
+            border: "none",
+          }}
           token={String(process.env.REACT_APP_KAKAO_API_KEY)}
           onSuccess={() => {
             console.log("로그인성공");
