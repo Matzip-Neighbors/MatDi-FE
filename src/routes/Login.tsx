@@ -8,6 +8,7 @@ const LoginContainer = styled.main`
   border: 2px solid black;
   margin: 2rem;
   border-radius: 2rem;
+  background-color: wheat;
 `;
 
 const Form = styled.form`
@@ -21,11 +22,14 @@ const Form = styled.form`
     border-left-width: 0;
     border-right-width: 0;
     border-top-width: 0;
-    border-bottom-width: 1;
     background-color: transparent;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 2px solid #ccc;
     position: relative;
     right: 50%;
+    &:first-child,
+    &:nth-of-type(2) {
+      box-shadow: 2px 2px 2px 1px rgba(0, 0, 255, 0.2);
+    }
   }
 `;
 
@@ -36,7 +40,7 @@ const Input = styled.input`
   margin: 1rem auto;
   opacity: 0.5;
   &:last-of-type {
-    margin: 3rem 0;
+    margin: 3rem 1rem;
     font-size: 1.5rem;
     font-weight: 500;
     cursor: pointer;
@@ -81,8 +85,10 @@ const Login = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<LoginForm>({ mode: "onChange" });
+
   const onValid = (data: LoginForm) => {
     if (!data.email && !data.password) return;
   };
@@ -93,13 +99,21 @@ const Login = () => {
         <Input
           {...register("email", {
             required: "이메일을 입력해주세요.",
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: "올바르지 않은 이메일 주소입니다.",
+            },
           })}
           type="email"
           placeholder="이메일"
         />
         <ErrorMessage>{errors.email?.message}</ErrorMessage>
         <Input
-          {...register("password", { required: "비밀번호를 입력해주세요" })}
+          {...register("password", {
+            required: "비밀번호를 입력해주세요",
+            validate: (value: string) =>
+              watch("password") !== value ? "비밀번호가 맞지 않습니다." : "",
+          })}
           type="password"
           placeholder="비밀번호"
         />
