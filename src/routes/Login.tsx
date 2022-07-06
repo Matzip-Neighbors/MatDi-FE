@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
-import KakaoLogin from "react-kakao-login";
-import { Link } from "react-router-dom";
 import PageTitle from "../components/PageTitle";
+import { device } from "../media";
 
 const LoginContainer = styled.main`
   border: 2px solid black;
@@ -122,25 +121,6 @@ const Login = () => {
         <Input type="submit" value="Sign in" />
         <ForgotPassword>비밀번호를 잊으셨습니까?</ForgotPassword>
       </Form>
-      {/* <KakaoLogin
-        token={String(process.env.REACT_APP_KAKAO_API_KEY)}
-        onSuccess={() => {
-          console.log("로그인성공");
-        }}
-        onFail={(err) => {
-          console.log("로그인실패", err);
-        }}
-        style={{
-          border: "none",
-          backgroundColor: "transparent",
-          cursor: "pointer",
-          position: "absolute",
-          top: "55%",
-          right: "30%",
-        }}
-      >
-        <img src={require("../img/kakao_logo.png")} alt="kakao_logo" />
-      </KakaoLogin> */}
     </LoginContainer>
   );
 };
