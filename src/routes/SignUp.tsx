@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
+import PageTitle from "./../components/PageTitle";
 
 const Form = styled.form`
   display: flex;
@@ -35,35 +36,38 @@ const SignUp = () => {
   const { register } = useForm();
 
   return (
-    <Form>
-      <input
-        {...register("이메일", { required: "이메일은 필수 항목입니다." })}
-        type="email"
-        placeholder="이메일"
-      />
-      <input
-        {...register("인증번호", { required: "인증번호는 필수 항목입니다." })}
-        type="number"
-        placeholder="인증번호"
-      />
-      <input
-        {...register("비밀번호", { required: "비밀번호는 필수 항목입니다." })}
-        type="password"
-        placeholder="비밀번호"
-        required
-      />
-      <input
-        {...register("비밀번호 확인", { required: "필수 항목입니다." })}
-        type="password"
-        placeholder="비밀번호 확인"
-      />
-      <input
-        {...register("닉네임", { required: "닉네임은 필수 항목입니다." })}
-        type="text"
-        placeholder="닉네임"
-      />
-      <Button>회원가입</Button>
-    </Form>
+    <>
+      <PageTitle title="Sign Up" />
+      <Form>
+        <input
+          {...register("이메일", { required: "이메일은 필수 항목입니다." })}
+          type="email"
+          placeholder="이메일"
+        />
+        <input
+          {...register("인증번호", { required: "인증번호는 필수 항목입니다." })}
+          type="number"
+          placeholder="인증번호"
+        />
+        <input
+          {...register("비밀번호", { required: "비밀번호는 필수 항목입니다." })}
+          type="password"
+          placeholder="비밀번호"
+          required
+        />
+        <input
+          {...register("비밀번호 확인", { required: "필수 항목입니다." })}
+          type="password"
+          placeholder="비밀번호 확인"
+        />
+        <input
+          {...register("닉네임", { required: "닉네임은 필수 항목입니다." })}
+          type="text"
+          placeholder="닉네임"
+        />
+        <Button>회원가입</Button>
+      </Form>
+    </>
   );
 };
 
