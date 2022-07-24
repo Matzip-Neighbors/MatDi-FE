@@ -18,7 +18,7 @@ const schema = yup.object().shape({
     .email()
     .max(255)
     .required('Email is required')
-    .matches(/^([A-Za-z]|[0-9])+$/, 'Email is invalid'),
+    .matches(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/, 'Email is invalid'),
   password: yup.string().required('Password is required').min(8).max(120),
   confirmPassword: yup
     .string()
