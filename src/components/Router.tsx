@@ -1,6 +1,6 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Login from "./../routes/Login";
-import SignUp from "./../routes/SignUp";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Login from './../routes/Login';
+import SignUp from './../routes/SignUp';
 
 const Router = () => {
   return (
